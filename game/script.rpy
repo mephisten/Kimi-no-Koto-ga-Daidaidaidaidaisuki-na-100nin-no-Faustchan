@@ -11,7 +11,7 @@ define m = Character('Mephistopheles', color = "#6d0f0f" )
 label start:
     scene dhkdas
 
-    f "{color=#f00}Habe nun, ach! Philosophie,{/color}" 
+    f "Habe nun, ach! Philosophie," 
 
     extend "\nJuristerei und Medizin," 
     extend "\n      Und leider auch Theologie" 
