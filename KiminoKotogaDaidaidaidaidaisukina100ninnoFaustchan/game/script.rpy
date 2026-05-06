@@ -13,10 +13,10 @@ label start:
 
     f "Habe nun, ach! Philosophie," 
 
-    extend "\nJuristerei und Medizin," 
-    extend "\n      Und leider auch Theologie" 
+    extend "\n {space=400} Juristerei und Medizin," 
+    extend "\nUnd leider auch Theologie" 
 
-    extend "\nDurchaus studiert, mit heißem Bemühn." 
+    extend "\n Durchaus studiert, mit heißem Bemühn." 
 
     f "Da steh ich nun, ich armer Tor!"
 
@@ -31,6 +31,5 @@ label start:
     f "Meine Schüler an der Nase herum –"
 
     f "Und sehe, daß wir nichts wissen können!"
-    f "faust-senpai"
-
+   
     return
