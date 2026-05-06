@@ -13,16 +13,16 @@ label start:
 
     f "Habe nun, ach! Philosophie," 
 
-    extend "\n {space=400} Juristerei und Medizin," 
+    extend "\n {space=278} Juristerei und Medizin," 
     extend "\nUnd leider auch Theologie" 
 
     extend "\n Durchaus studiert, mit heißem Bemühn." 
 
     f "Da steh ich nun, ich armer Tor!"
 
-    f "Und bin so klug als wie zuvor;"
+    extend "\n Und bin so klug als wie zuvor;"
 
-    f "Heiße Magister, heiße Doktor gar"
+    extend "Heiße Magister, heiße Doktor gar"
 
     f "Und ziehe schon an die zehen Jahr"
 
