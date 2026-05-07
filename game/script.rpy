@@ -11,11 +11,14 @@ define m = Character('Mephistopheles', color = "#6d0f0f" )
 label start:
     scene dhkdas
     show faust glücklich at right
-
+    show onimai peak 
+    
     f "{space=350}Habe nun, ach! Philosophie," 
 
     extend "\nJuristerei und Medizin," 
     extend "\n{space=350}Und leider auch Theologie" 
+
+    play music "Faust-chan.mp3"
 
     extend "\nDurchaus studiert, mit heißem Bemühn." 
     show wagner neutral at left
