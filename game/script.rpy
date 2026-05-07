@@ -10,19 +10,20 @@ define m = Character('Mephistopheles', color = "#6d0f0f" )
 # Hier beginnt das Spiel.
 label start:
     scene dhkdas
+    show Meine Freundin
 
-    f "Habe nun, ach! Philosophie," 
+    f "{space=350}Habe nun, ach! Philosophie," 
 
-    extend "\n {space=278} Juristerei und Medizin," 
-    extend "\nUnd leider auch Theologie" 
+    extend "\nJuristerei und Medizin," 
+    extend "\n{space=350}Und leider auch Theologie" 
 
-    extend "\n Durchaus studiert, mit heißem Bemühn." 
+    extend "\nDurchaus studiert, mit heißem Bemühn." 
 
     f "Da steh ich nun, ich armer Tor!"
 
-    extend "\n Und bin so klug als wie zuvor;"
+    extend "\nUnd bin so klug als wie zuvor;"
 
-    extend "Heiße Magister, heiße Doktor gar"
+    extend "\n Heiße Magister, heiße Doktor gar"
 
     f "Und ziehe schon an die zehen Jahr"
 
