@@ -7,6 +7,10 @@
 define f = Character('Faust-chan', color="#ffc8f3")
 define w = Character('Wagner-san', color="#c52c2c")
 define m = Character('Mephistopheles', color = "#6d0f0f" )
+init python:
+
+    renpy.music.register_channel("music2", mixer="music", loop=True)
+    renpy.music.register_channel("music3", mixer="music", loop=True)
 # Hier beginnt das Spiel.
 label start:
     scene dhkdas
@@ -18,13 +22,14 @@ label start:
     extend "\nJuristerei und Medizin," 
     extend "\n{space=350}Und leider auch Theologie" 
 
-    play sound "Faust-chan.mp3"
+    play music2 "Faust-chan.mp3" loop
+   
 
     extend "\nDurchaus studiert, mit heißem Bemühn." 
     show wagner neutral at left
 
     f "Da steh ich nun, ich armer Tor!"
-
+    play music3 "peak.ogg"
     extend "\nUnd bin so klug als wie zuvor;"
 
     extend "\n Heiße Magister, heiße Doktor gar"
