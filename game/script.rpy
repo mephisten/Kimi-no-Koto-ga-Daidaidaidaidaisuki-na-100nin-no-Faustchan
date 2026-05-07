@@ -10,7 +10,7 @@ define m = Character('Mephistopheles', color = "#6d0f0f" )
 # Hier beginnt das Spiel.
 label start:
     scene dhkdas
-    show faust glücklich
+    show faust glücklich at right
 
     f "{space=350}Habe nun, ach! Philosophie," 
 
@@ -18,6 +18,7 @@ label start:
     extend "\n{space=350}Und leider auch Theologie" 
 
     extend "\nDurchaus studiert, mit heißem Bemühn." 
+    show wagner neutral at left
 
     f "Da steh ich nun, ich armer Tor!"
 
