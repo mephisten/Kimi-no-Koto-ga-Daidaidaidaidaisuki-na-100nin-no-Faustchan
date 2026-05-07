@@ -10,7 +10,7 @@ define m = Character('Mephistopheles', color = "#6d0f0f" )
 # Hier beginnt das Spiel.
 label start:
     scene dhkdas
-    show Meine Freundin
+    show faust glücklich
 
     f "{space=350}Habe nun, ach! Philosophie," 
 
