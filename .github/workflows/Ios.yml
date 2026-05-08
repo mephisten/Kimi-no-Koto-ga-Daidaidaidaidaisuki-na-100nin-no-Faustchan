@@ -18,13 +18,12 @@ jobs:
         uses: remarkablegames/setup-renpy@v1
         with:
           renios: true # Ganz wichtig: Lädt die iOS-Abhängigkeiten (Renios) von Ren'Py herunter
-          # cli-version: '8.3.1' # Optional: Falls du eine spezifische Ren'Py Version brauchst
 
       - name: Generate Xcode Project
         run: |
           # Generiert das Xcode-Projekt. 
-          # "." ist dein Repo-Root (wo der "game"-Ordner liegt), "./ios-build" ist der Zielordner.
           renpy-launcher ios_create . ./ios-build
+          
       - name: Build Xcode Project (Unsigned)
         run: |
           cd ios-build
@@ -33,13 +32,12 @@ jobs:
           XCODEPROJ=$(find . -name "*.xcodeproj" | head -n 1)
           
           # Lese den tatsächlichen Scheme-Namen dynamisch aus dem Projekt aus
-          # jq ist auf den macOS-Runnern von GitHub standardmäßig installiert
           SCHEME=$(xcodebuild -list -project "$XCODEPROJ" -json | jq -r '.project.schemes[0]')
           
           echo "Gefundenes Projekt: $XCODEPROJ"
           echo "Gefundenes Scheme: $SCHEME"
           
-          # Sicherheits-Check: Falls das Scheme wider Erwarten leer sein sollte
+          # Sicherheits-Check (JETZT MIT LEERZEICHEN NACH DEM IF)
           if[ "$SCHEME" = "null" ] || [ -z "$SCHEME" ]; then
             echo "Fehler: Kein Scheme gefunden! Hier ist die Ausgabe von xcodebuild -list:"
             xcodebuild -list -project "$XCODEPROJ"
