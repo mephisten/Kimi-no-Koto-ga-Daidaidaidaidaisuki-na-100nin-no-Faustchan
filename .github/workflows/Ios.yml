@@ -25,16 +25,26 @@ jobs:
           # Generiert das Xcode-Projekt. 
           # "." ist dein Repo-Root (wo der "game"-Ordner liegt), "./ios-build" ist der Zielordner.
           renpy-launcher ios_create . ./ios-build
-        
       - name: Build Xcode Project (Unsigned)
         run: |
           cd ios-build
           
-          # Das generierte Xcode-Projekt und den Scheme-Namen dynamisch auslesen
+          # Das generierte Xcode-Projekt dynamisch auslesen
           XCODEPROJ=$(find . -name "*.xcodeproj" | head -n 1)
-          SCHEME=$(basename "$XCODEPROJ" .xcodeproj)
           
-          echo "Baue Xcode-Projekt: $XCODEPROJ mit Scheme: $SCHEME"
+          # Lese den tatsächlichen Scheme-Namen dynamisch aus dem Projekt aus
+          # jq ist auf den macOS-Runnern von GitHub standardmäßig installiert
+          SCHEME=$(xcodebuild -list -project "$XCODEPROJ" -json | jq -r '.project.schemes[0]')
+          
+          echo "Gefundenes Projekt: $XCODEPROJ"
+          echo "Gefundenes Scheme: $SCHEME"
+          
+          # Sicherheits-Check: Falls das Scheme wider Erwarten leer sein sollte
+          if[ "$SCHEME" = "null" ] || [ -z "$SCHEME" ]; then
+            echo "Fehler: Kein Scheme gefunden! Hier ist die Ausgabe von xcodebuild -list:"
+            xcodebuild -list -project "$XCODEPROJ"
+            exit 1
+          fi
           
           # Build-Prozess OHNE Signierung
           xcodebuild clean build \
@@ -45,7 +55,7 @@ jobs:
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO \
-            SYMROOT="$(pwd)/build" # Zwingt Xcode, die fertige App im lokalen "build"-Ordner abzulegen
+            SYMROOT="$(pwd)/build"
             
       - name: Package to Dev IPA
         run: |
