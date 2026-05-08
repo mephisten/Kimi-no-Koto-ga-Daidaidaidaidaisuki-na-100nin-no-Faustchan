@@ -63,7 +63,7 @@ jobs:
           APP_DIR=$(find build/Release-iphoneos -name "*.app" | head -n 1)
           
           # Sicherheits-Check, ob die App wirklich gebaut wurde
-          if[ -z "$APP_DIR" ]; then
+          if [ -z "$APP_DIR" ]; then
             echo "Fehler: Keine kompilierte .app Datei gefunden!"
             exit 1
           fi
@@ -73,11 +73,11 @@ jobs:
           # Struktur der IPA erstellen und packen
           mkdir -p Payload
           cp -R "$APP_DIR" Payload/
-          zip -qr ../MyGame-Dev.ipa Payload
+          zip -qr ../100faust-chan.ipa Payload
           
       - name: Upload IPA Artifact
         uses: actions/upload-artifact@v4
         with:
           name: iOS-Dev-IPA
-          path: MyGame-Dev.ipa
+          path: 100faust-chan.ipa
           retention-days: 7
