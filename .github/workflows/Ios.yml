@@ -21,30 +21,26 @@ jobs:
 
       - name: Generate Xcode Project
         run: |
-          # Generiert das Xcode-Projekt
-          renpy-launcher ios_create . ./ios-build
+          # Wir erstellen den Build-Ordner AUSSERHALB des Repos, 
+          # damit Ren'Py ihn nicht in die App kopiert.
+          renpy-launcher ios_create . ../ios-build
           
       - name: Build Xcode Project (Unsigned)
         run: |
-          cd ios-build
+          # Wechsel in den Ordner außerhalb des Repos
+          cd ../ios-build
           
-          # Das generierte Xcode-Projekt dynamisch auslesen
           XCODEPROJ=$(find . -name "*.xcodeproj" | head -n 1)
-          
-          # Lese den tatsächlichen Scheme-Namen dynamisch aus dem Projekt aus
           SCHEME=$(xcodebuild -list -project "$XCODEPROJ" -json | jq -r '.project.schemes[0]')
           
           echo "Gefundenes Projekt: $XCODEPROJ"
           echo "Gefundenes Scheme: $SCHEME"
           
-          # Sicherheits-Check
           if [ "$SCHEME" = "null" ] || [ -z "$SCHEME" ]; then
             echo "Fehler: Kein Scheme gefunden!"
-            xcodebuild -list -project "$XCODEPROJ"
             exit 1
           fi
           
-          # Build-Prozess (OHNE Apple-Zertifikat)
           xcodebuild clean build \
             -project "$XCODEPROJ" \
             -scheme "$SCHEME" \
@@ -57,27 +53,22 @@ jobs:
             
       - name: Package to Dev IPA
         run: |
-          cd ios-build
+          cd ../ios-build
           
-          # Sucht die fertig gebaute .app Datei
           APP_DIR=$(find build/Release-iphoneos -name "*.app" | head -n 1)
           
-          # Sicherheits-Check
           if [ -z "$APP_DIR" ]; then
-            echo "Fehler: Keine kompilierte .app Datei gefunden!"
+            echo "Fehler: Keine .app gefunden!"
             exit 1
           fi
           
-          # NEU: Ad-Hoc Signatur erstellen (erlaubt LiveContainer/Sideloadly das Re-Signieren)
-          echo "Erstelle Ad-Hoc-Signatur für $APP_DIR..."
+          # Ad-Hoc Signatur (wichtig für LiveContainer)
           codesign -s - -f --deep "$APP_DIR"
           
-          echo "Verpacke $APP_DIR zu einer IPA..."
-          
-          # Struktur der IPA erstellen und packen
+          # IPA Erstellung (wir speichern sie zurück in das ursprüngliche Arbeitsverzeichnis)
           mkdir -p Payload
           cp -R "$APP_DIR" Payload/
-          zip -qr ../100faust-chan.ipa Payload
+          zip -qr "$GITHUB_WORKSPACE/100faust-chan.ipa" Payload
           
       - name: Upload IPA Artifact
         uses: actions/upload-artifact@v4
