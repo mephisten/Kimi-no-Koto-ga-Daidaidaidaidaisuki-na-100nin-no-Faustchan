@@ -22,7 +22,7 @@ label start:
     extend "\nJuristerei und Medizin," 
     extend "\n{space=350}Und leider auch Theologie" 
 
-    play music2 "Faust-chan.mp3" loop
+    play music2 "Faust-chan.mp3" 
    
 
     extend "\nDurchaus studiert, mit heißem Bemühn." 
@@ -32,7 +32,7 @@ label start:
     play music3 "peak.ogg"
     extend "\nUnd bin so klug als wie zuvor;"
 
-    extend "\n Heiße Magister, heiße Doktor gar"
+    extend "\nHeiße Magister, heiße Doktor gar"
 
     f "Und ziehe schon an die zehen Jahr"
 
