@@ -1,0 +1,69 @@
+name: Build iOS Dev IPA
+
+on:
+  workflow_dispatch: # Erlaubt dir, den Build manuell im "Actions"-Tab zu starten
+  push:
+    branches:
+      - main # (Optional) Startet den Build automatisch bei einem Push auf main
+
+jobs:
+  build-ios:
+    runs-on: macos-latest # Xcode wird benötigt, daher muss es macOS sein
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Ren'Py
+        uses: remarkablegames/setup-renpy@v1
+        with:
+          renios: true # Ganz wichtig: Lädt die iOS-Abhängigkeiten (Renios) von Ren'Py herunter
+          # cli-version: '8.3.1' # Optional: Falls du eine spezifische Ren'Py Version brauchst
+
+      - name: Generate Xcode Project
+        run: |
+          # Generiert das Xcode-Projekt. 
+          # "." ist dein Repo-Root (wo der "game"-Ordner liegt), "./ios-build" ist der Zielordner.
+          renpy-launcher ios_create . ./ios-build
+        
+      - name: Build Xcode Project (Unsigned)
+        run: |
+          cd ios-build
+          
+          # Das generierte Xcode-Projekt und den Scheme-Namen dynamisch auslesen
+          XCODEPROJ=$(find . -name "*.xcodeproj" | head -n 1)
+          SCHEME=$(basename "$XCODEPROJ" .xcodeproj)
+          
+          echo "Baue Xcode-Projekt: $XCODEPROJ mit Scheme: $SCHEME"
+          
+          # Build-Prozess OHNE Signierung
+          xcodebuild clean build \
+            -project "$XCODEPROJ" \
+            -scheme "$SCHEME" \
+            -configuration Release \
+            -sdk iphoneos \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            SYMROOT="$(pwd)/build" # Zwingt Xcode, die fertige App im lokalen "build"-Ordner abzulegen
+            
+      - name: Package to Dev IPA
+        run: |
+          cd ios-build
+          
+          # Sucht die fertig gebaute .app Datei
+          APP_DIR=$(find build/Release-iphoneos -name "*.app" | head -n 1)
+          
+          echo "Verpacke $APP_DIR zu einer IPA..."
+          
+          # Eine .ipa ist strukturell einfach ein Zip-Archiv, das einen "Payload"-Ordner enthält
+          mkdir -p Payload
+          cp -R "$APP_DIR" Payload/
+          zip -qr ../MyGame-Dev.ipa Payload
+          
+      - name: Upload IPA Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: iOS-Dev-IPA
+          path: MyGame-Dev.ipa
+          retention-days: 7
