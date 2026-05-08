@@ -1,14 +1,14 @@
 name: Build iOS Dev IPA
 
 on:
-  workflow_dispatch: # Erlaubt dir, den Build manuell im "Actions"-Tab zu starten
+  workflow_dispatch:
   push:
     branches:
-      - main # (Optional) Startet den Build automatisch bei einem Push auf main
+      - main
 
 jobs:
   build-ios:
-    runs-on: macos-latest # Xcode wird benötigt, daher muss es macOS sein
+    runs-on: macos-latest
 
     steps:
       - name: Checkout Repository
@@ -17,11 +17,11 @@ jobs:
       - name: Setup Ren'Py
         uses: remarkablegames/setup-renpy@v1
         with:
-          renios: true # Ganz wichtig: Lädt die iOS-Abhängigkeiten (Renios) von Ren'Py herunter
+          renios: true
 
       - name: Generate Xcode Project
         run: |
-          # Generiert das Xcode-Projekt. 
+          # Generiert das Xcode-Projekt
           renpy-launcher ios_create . ./ios-build
           
       - name: Build Xcode Project (Unsigned)
@@ -37,9 +37,9 @@ jobs:
           echo "Gefundenes Projekt: $XCODEPROJ"
           echo "Gefundenes Scheme: $SCHEME"
           
-          # Sicherheits-Check (JETZT MIT LEERZEICHEN NACH DEM IF)
-          if[ "$SCHEME" = "null" ] || [ -z "$SCHEME" ]; then
-            echo "Fehler: Kein Scheme gefunden! Hier ist die Ausgabe von xcodebuild -list:"
+          # Sicherheits-Check (MIT KORREKTEM LEERZEICHEN: "if [")
+          if [ "$SCHEME" = "null" ] ||[ -z "$SCHEME" ]; then
+            echo "Fehler: Kein Scheme gefunden!"
             xcodebuild -list -project "$XCODEPROJ"
             exit 1
           fi
@@ -62,9 +62,15 @@ jobs:
           # Sucht die fertig gebaute .app Datei
           APP_DIR=$(find build/Release-iphoneos -name "*.app" | head -n 1)
           
+          # Sicherheits-Check, ob die App wirklich gebaut wurde
+          if[ -z "$APP_DIR" ]; then
+            echo "Fehler: Keine kompilierte .app Datei gefunden!"
+            exit 1
+          fi
+          
           echo "Verpacke $APP_DIR zu einer IPA..."
           
-          # Eine .ipa ist strukturell einfach ein Zip-Archiv, das einen "Payload"-Ordner enthält
+          # Struktur der IPA erstellen und packen
           mkdir -p Payload
           cp -R "$APP_DIR" Payload/
           zip -qr ../MyGame-Dev.ipa Payload
