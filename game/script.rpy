@@ -14,7 +14,7 @@ init python:
 # Hier beginnt das Spiel.
 label start:
     scene dhkdas
-    show faust glücklich at right
+    show faust gluecklich at right
     show onimai peak 
     
     f "{space=350}Habe nun, ach! Philosophie," 
