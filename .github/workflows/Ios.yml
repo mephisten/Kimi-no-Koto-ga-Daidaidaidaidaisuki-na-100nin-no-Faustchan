@@ -21,23 +21,20 @@ jobs:
 
       - name: Generate Xcode Project
         run: |
-          # Wir erstellen den Build-Ordner AUSSERHALB des Repos, 
-          # damit Ren'Py ihn nicht in die App kopiert.
           renpy-launcher ios_create . ../ios-build
           
       - name: Build Xcode Project (Unsigned)
         run: |
-          # Wechsel in den Ordner außerhalb des Repos
           cd ../ios-build
           
           XCODEPROJ=$(find . -name "*.xcodeproj" | head -n 1)
           SCHEME=$(xcodebuild -list -project "$XCODEPROJ" -json | jq -r '.project.schemes[0]')
           
-          echo "Gefundenes Projekt: $XCODEPROJ"
-          echo "Gefundenes Scheme: $SCHEME"
+          echo "Projekt: $XCODEPROJ"
+          echo "Scheme: $SCHEME"
           
           if [ "$SCHEME" = "null" ] || [ -z "$SCHEME" ]; then
-            echo "Fehler: Kein Scheme gefunden!"
+            echo "Fehler: Kein Scheme!"
             exit 1
           fi
           
@@ -58,14 +55,14 @@ jobs:
           APP_DIR=$(find build/Release-iphoneos -name "*.app" | head -n 1)
           
           if [ -z "$APP_DIR" ]; then
-            echo "Fehler: Keine .app gefunden!"
+            echo "Fehler: Keine .app!"
             exit 1
           fi
           
-          # Ad-Hoc Signatur (wichtig für LiveContainer)
+          # Signatur
           codesign -s - -f --deep "$APP_DIR"
           
-          # IPA Erstellung (wir speichern sie zurück in das ursprüngliche Arbeitsverzeichnis)
+          
           mkdir -p Payload
           cp -R "$APP_DIR" Payload/
           zip -qr "$GITHUB_WORKSPACE/100faust-chan.ipa" Payload
