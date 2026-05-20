@@ -1,4 +1,4 @@
-# === CHARAKTER DEFINITIONEN ===
+﻿# === CHARAKTER DEFINITIONEN ===
 define c_alle = Character("Alle", color="#ffffff")
 define c_alte = Character("Alte", color="#ffffff")
 define c_alter_bauer = Character("Alter Bauer", color="#ffffff")
@@ -107,6 +107,8 @@ define c_xenien = Character("Xenien", color="#ffffff")
 define c_zu_drei = Character("Zu Drei", color="#ffffff")
 define c_zweiter = Character("Zweiter", color="#ffffff")
 define c_zweiter_schüler = Character("Zweiter Schüler", color="#ffffff")
+image Unbenannt = "Unbenannt.png"
+
 
 # === SPIEL START ===
 label start:
@@ -363,6 +365,8 @@ label start:
     c_director "Vom Himmel durch die Welt zur Hölle."
     # [Haupttext]
 
+    scene Unbenannt
+
     # --- Prolog im Himmel. ---
     "Der Herr, die himmlischen Heerschaaren, nachher Mephistopheles."
     "Die drei Erzengel treten vor."
@@ -481,7 +485,7 @@ label start:
     c_mephistopheles "Und hüte mich mit ihm zu brechen."
     c_mephistopheles "Es ist gar hübsch von einem großen Herrn,"
     c_mephistopheles "So menschlich mit dem Teufel selbst zu sprechen."
-
+  
     # --- Der Tragödie Erster Theil. ---
     "Nacht."
     "In einem hochgewölbten engen gothischen Zimmer Faust unruhig auf seinem Sessel am Pulte."
@@ -875,6 +879,32 @@ label start:
     c_faust "Der letzte Trunk sei nun, mit ganzer Seele,"
     c_faust "Als festlich hoher Gruß, dem Morgen zugebracht!"
     # Er setzt die Schale an den Mund.
+    
+    menu:
+
+        "zögern": 
+             jump Zögern_1
+    
+        "sich der Versuchung hingeben": 
+             jump Zögern_2
+
+return
+
+label Zögern_2:
+
+    c_faust"So widerlich erfüllt´s mein Gaumen,"
+    c_faust"mein Leib durchwäscht von diesem Trunk."
+    c_faust "So gerne wär ich ein Bauers Sohn,"
+    c_faust "Felder ackern, Samen säen und blauäugig sein"
+    c_faust "Dem Menschentum weit entfernt,"
+    c_faust "er Göttlichkeit sehr entbehrt."
+    c_faust "Das einfache Volk beneid ich sehr"
+    c_faust "so seelenruhig gehen sie umher"
+
+return
+
+label Zögern_1:
+
     c_faust "Glockenklang und Chorgesang."
     c_chor_der_engel "Christ ist erstanden!"
     c_chor_der_engel "Freude dem Sterblichen,"
@@ -5182,3 +5212,5 @@ label start:
     c_mephistopheles "Verschwindet mit Faust."
     # von innen, verhallend.
     c_stimme "Heinrich! Heinrich!"
+
+return
