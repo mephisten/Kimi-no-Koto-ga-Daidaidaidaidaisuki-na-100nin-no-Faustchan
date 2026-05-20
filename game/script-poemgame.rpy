@@ -17,7 +17,7 @@ init python:
 
     poem_lines="""#File format: word,sPoint,nPoint,yPoint
 
-#Sayori's winning words
+#Fausts's winning words
 happiness,3,2,1
 sadness,3,2,1
 death,3,1,2
@@ -250,8 +250,7 @@ breathe,1,2,3
 captive,2,1,3
 desire,1,2,3
 graveyard,2,1,3"""
-    full_wordlist = []  # TO!DONE: hardcode lines from poemwords.txt
-    #with renpy.file('poemwords.txt') as wordfile:
+    full_wordlist = []  #
     for line in poem_lines.splitlines():
         
         line = line.strip()
@@ -400,29 +399,11 @@ graveyard,2,1,3"""
 
 label poem(transition=True):
     stop music fadeout 2.0
-    if persistent.playthrough == 3:
-        scene bg notebook-glitch
-    else:
         scene bg notebook
     show screen quick_menu
-    if persistent.playthrough == 3:
-        show m_sticker at sticker_mid
-    else:
-        if persistent.playthrough == 0:
-            show s_sticker at sticker_left
-        show n_sticker at sticker_mid
-        if persistent.playthrough == 2 and chapter == 2:
-            show y_sticker_cut at sticker_right
-        else:
-            show y_sticker at sticker_right
-        if persistent.playthrough == 2 and chapter == 2:
-            show m_sticker at sticker_m_glitch
-    if transition:
-        with dissolve_scene_full
-    if persistent.playthrough == 3:
-        play music ghostmenu
-    else:
-        play music t4
+    show s_sticker at sticker_left
+    show n_sticker at sticker_mid
+    play music t4
     $ config.skipping = False
     $ config.allow_skipping = False
     $ allow_skipping = False
@@ -457,31 +438,16 @@ label poem(transition=True):
 
         while True:
             ystart = 160
-            if persistent.playthrough == 2 and chapter == 2:
-                pstring = ""
-                for i in range(progress):
-                    pstring += "1"
-            else:
-                pstring = str(progress)
+
+            pstring = str(progress)
             ui.text(pstring + "/" + str(numWords), style="poemgame_text", xpos=810, ypos=80, color='#000')
             for j in range(2):
                 if j == 0: x = 440
                 else: x = 680
                 ui.vbox()
                 for i in range(5):
-                    if persistent.playthrough == 3:
-                        s = list("Monika")
-                        for k in range(6):
-                            if random.randint(0, 4) == 0:
-                                s[k] = ' '
-                            elif random.randint(0, 4) == 0:
-                                s[k] = random.choice(nonunicode)
-                        word = PoemWord("".join(s), 0, 0, 0, False)
-                    elif persistent.playthrough == 2 and not poemgame_glitch and chapter >= 1 and progress < numWords and random.randint(0, 400) == 0:
-                        word = PoemWord(glitchtext(80), 0, 0, 0, True)
-                    else:
-                        word = random.choice(wordlist)
-                        wordlist.remove(word)
+                    word = random.choice(wordlist)
+                    wordlist.remove(word)
                     ui.textbutton(word.word, clicked=ui.returns(word), text_style="poemgame_text", xpos=x, ypos=i * 56 + ystart)
                 ui.close()
             
@@ -551,23 +517,6 @@ label poem(transition=True):
 
         exec(poemwinner[chapter][0] + "_poemappeal[chapter] = 1")
 
-    if persistent.playthrough == 2 and persistent.seen_eyes == None and renpy.random.randint(0,5) == 0:
-        $ seen_eyes_this_chapter = True
-        $ quick_menu = False
-        play sound "sfx/eyes.ogg"
-        $ persistent.seen_eyes = True
-        stop music
-        scene black with None
-        show bg eyes_move
-        pause 1.2
-        hide bg eyes_move
-        show bg eyes
-        pause 0.5
-        hide bg eyes
-        show bg eyes_move
-        pause 1.25
-        hide bg eyes with None
-        $ quick_menu = True
     $ config.allow_skipping = True
     $ allow_skipping = True
     stop music fadeout 2.0
@@ -693,16 +642,6 @@ image m_sticker hop:
     xoffset 0 xzoom 1
     "m_sticker"
 
-image y_sticker glitch:
-    "gui/poemgame/y_sticker_1_broken.png"
-    xoffset yuriOffset xzoom yuriZoom zoom 3.0
-    block:
-        function randomPauseYuri
-        parallel:
-            sticker_move_n
-        parallel:
-            function randomMoveYuri
-        repeat
 
 transform sticker_left:
     xcenter 100 yalign 0.9 subpixel True
@@ -728,4 +667,3 @@ transform sticker_hop:
     easeout_quad .18 yoffset 0
     easein_quad .18 yoffset -80
     easeout_quad .18 yoffset 0
-# Decompiled by unrpyc: https://github.com/CensoredUsername/unrpyc
