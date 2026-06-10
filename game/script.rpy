@@ -1,4 +1,4 @@
-﻿# === CHARAKTER DEFINITIONEN ===
+# === CHARAKTER DEFINITIONEN ===
 define c_alle = Character("Alle", color="#ffffff")
 define c_alte = Character("Alte", color="#ffffff")
 define c_alter_bauer = Character("Alter Bauer", color="#ffffff")
@@ -108,7 +108,22 @@ define c_zu_drei = Character("Zu Drei", color="#ffffff")
 define c_zweiter = Character("Zweiter", color="#ffffff")
 define c_zweiter_schüler = Character("Zweiter Schüler", color="#ffffff")
 image Unbenannt = "Unbenannt.png"
+#funktionen
+screen now_playing(song_name):
+    zorder 150
+    style_prefix "now_playing"
 
+    frame:
+        xalign 0.1
+        yalign 0.1
+        padding (10, 10)
+        
+        has vbox
+        text "🎵 Now Playing" size 16
+        text song_name size 20
+
+style now_playing_frame:
+    background Frame("gui/frame.png", 10, 10)
 
 # === SPIEL START ===
 label start:
@@ -116,7 +131,7 @@ label start:
 
     "Eine Tragödie. \[Erster Theil.\]"
     # [Einleitende Angaben]
-
+    show screen now_playing("peak")
     # --- Zueignung. ---
     "Ihr naht euch wieder, schwankende Gestalten,"
     "Die früh sich einst dem trüben Blick gezeigt."
@@ -479,14 +494,14 @@ label start:
     c_der_herr "Und was in schwankender Erscheinung schwebt,"
     c_der_herr "Befestiget mit dauernden Gedanken."
     c_der_herr "Der Himmel schließt, die Erzengel vertheilen sich."
-    # allein.
+    "allein."
     c_mephistopheles "Von Zeit zu Zeit seh' ich den Alten gern,"
     c_mephistopheles "Und hüte mich mit ihm zu brechen."
     c_mephistopheles "Es ist gar hübsch von einem großen Herrn,"
     c_mephistopheles "So menschlich mit dem Teufel selbst zu sprechen."
     # --- Der Tragödie Erster Theil. ---
-    #"Nacht."
-    #"In einem hochgewölbten engen gothischen Zimmer Faust unruhig auf seinem Sessel am Pulte."
+    "Nacht."
+    "In einem hochgewölbten engen gothischen Zimmer Faust unruhig auf seinem Sessel am Pulte."
     c_faust "Habe nun, ach! Philosophie,"
     c_faust "Juristerei und Medicin,"
     c_faust "Und leider auch Theologie!"
@@ -1502,8 +1517,7 @@ label Zögern_1:
     c_faust "Das dreimal glühende Licht!"
     c_faust "Erwarte nicht"
     c_faust "Die stärkste von meinen Künsten!"
-    "Mephistopheles tritt, indem der Nebel fällt, gekleidet wie ein fahrender Scholasticus, hinter dem Ofen"
-    "hervor."
+    "Mephistopheles tritt, indem der Nebel fällt, gekleidet wie ein fahrender Scholasticus, hinter dem Ofen hervor."
     c_mephistopheles "Wozu der Lärm? was steht dem Herrn zu Diensten?"
     c_faust "Das also war des Pudels Kern!"
     c_faust "Ein fahrender Scolast? Der Casus macht mich lachen."

@@ -399,7 +399,7 @@ graveyard,2,1,3"""
 
 label poem(transition=True):
     stop music fadeout 2.0
-        scene bg notebook
+    scene bg notebook
     show screen quick_menu
     show s_sticker at sticker_left
     show n_sticker at sticker_mid
