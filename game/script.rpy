@@ -485,8 +485,8 @@ label start:
     c_mephistopheles "Es ist gar hübsch von einem großen Herrn,"
     c_mephistopheles "So menschlich mit dem Teufel selbst zu sprechen."
     # --- Der Tragödie Erster Theil. ---
-    "Nacht."
-    "In einem hochgewölbten engen gothischen Zimmer Faust unruhig auf seinem Sessel am Pulte."
+    #"Nacht."
+    #"In einem hochgewölbten engen gothischen Zimmer Faust unruhig auf seinem Sessel am Pulte."
     c_faust "Habe nun, ach! Philosophie,"
     c_faust "Juristerei und Medicin,"
     c_faust "Und leider auch Theologie!"
@@ -591,7 +591,7 @@ label start:
     c_faust "Euch Brüste, wo? Ihr Quellen alles Lebens,"
     c_faust "An denen Himmel und Erde hängt,"
     c_faust "Dahin die welke Brust sich drängt --Ihr quellt, ihr tränkt, und schmacht' ich so vergebens?"
-    "Er schlägt unwillig das Buch um und erblickt das Zeichen des Erdgeistes"
+    #"Er schlägt unwillig das Buch um und erblickt das Zeichen des Erdgeistes"
     c_faust "Wie anders wirkt dieß Zeichen auf mich ein!"
     c_faust "Du, Geist der Erde, bist mir näher;"
     c_faust "Schon fühl' ich meine Kräfte höher,"
@@ -880,9 +880,9 @@ label start:
     menu:
 
         "zögern": 
-             jump Zögern_1
+            jump Zögern_1
         "sich der Versuchung hingeben": 
-             jump Zögern_2
+            jump Zögern_2
 
 return
 
