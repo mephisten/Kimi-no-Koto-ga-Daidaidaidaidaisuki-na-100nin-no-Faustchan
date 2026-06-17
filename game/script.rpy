@@ -2934,8 +2934,8 @@ label Zögern_1:
     c_mephistopheles "Leise."
     c_mephistopheles "Du siehst, mit diesem Trank im Leibe,"
     c_mephistopheles "Bald Helenen in jedem Weibe."
-    "Peak."
-    show IMG_2222
+    "allein. verwirrt."
+    show faust frau
     c_faust "Oh weh oh nein was hat sie nur vollbracht"
     c_faust "Das elendige Weib hat mich zu ihresgleichen gemacht"
     c_faust "da fühl ich meine wonneglocken"
