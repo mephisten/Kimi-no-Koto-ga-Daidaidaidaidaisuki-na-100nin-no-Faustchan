@@ -403,12 +403,11 @@ label poem(transition=True):
     show screen quick_menu
     show s_sticker at sticker_left
     show n_sticker at sticker_mid
-    play music t4
+    #play music t4
     $ config.skipping = False
     $ config.allow_skipping = False
     $ allow_skipping = False
-    if persistent.playthrough == 0 and chapter == 0:
-        call screen dialog("It's time to write a poem!\n\nPick words you think your favorite club member\nwill like. Something good might happen with\nwhoever likes your poem the most!", ok_action=Return())
+    #call screen dialog("It's time to write a poem!\n\nPick words you think your favorite club member\nwill like. Something good might happen with\nwhoever likes your poem the most!", ok_action=Return())
     python:
         poemgame_glitch = False
         played_baa = False
@@ -452,36 +451,13 @@ label poem(transition=True):
                 ui.close()
             
             t = ui.interact()
-            if not poemgame_glitch:
-                if t.glitch:
-                    poemgame_glitch = True
-                    renpy.music.play(audio.t4g)
-                    renpy.scene()
-                    renpy.show("white")
-                    renpy.show("y_sticker glitch", at_list=[sticker_glitch])
-                elif persistent.playthrough != 3:
-                    renpy.play(gui.activate_sound)
-                    if persistent.playthrough == 0:
-                        if t.sPoint >= 3:
-                            renpy.show("s_sticker hop")
-                        if t.nPoint >= 3:
-                            renpy.show("n_sticker hop")
-                        if t.yPoint >= 3:
-                            renpy.show("y_sticker hop")
-                    else:
-                        if persistent.playthrough == 2 and chapter == 2 and random.randint(0,10) == 0: renpy.show("m_sticker hop")
-                        elif t.nPoint > t.yPoint: renpy.show("n_sticker hop")
-                        elif persistent.playthrough == 2 and not persistent.seen_sticker and random.randint(0,100) == 0:
-                            renpy.show("y_sticker hopg")
-                            persistent.seen_sticker = True
-                        elif persistent.playthrough == 2 and chapter == 2: renpy.show("y_sticker_cut hop")
-                        else: renpy.show("y_sticker hop")
-            else:
-                r = random.randint(0, 10)
-                if r == 0 and not played_baa:
-                    renpy.play("gui/sfx/baa.ogg")
-                    played_baa = True
-                elif r <= 5: renpy.play(gui.activate_sound_glitch)
+            
+            if t.sPoint >= 3:
+                renpy.show("s_sticker hop")
+            if t.nPoint >= 3:
+                renpy.show("n_sticker hop")
+            if t.yPoint >= 3:
+                renpy.show("y_sticker hop")
             sPointTotal += t.sPoint
             nPointTotal += t.nPoint
             yPointTotal += t.yPoint
@@ -489,33 +465,18 @@ label poem(transition=True):
             if progress > numWords:
                 break
 
-        if persistent.playthrough == 0:
+        #exec(ch1_choice[0] + "PointTotal += 5")
             
-            if chapter == 1:
-                exec(ch1_choice[0] + "PointTotal += 5")
-            
-            unsorted_pointlist = {"sayori": sPointTotal, "natsuki": nPointTotal, "yuri": yPointTotal}
-            pointlist = sorted(unsorted_pointlist, key=unsorted_pointlist.get)
-            
-            
-            poemwinner[chapter] = pointlist[2]
-        else:
-            if nPointTotal > yPointTotal: poemwinner[chapter] = "natsuki"
-            else: poemwinner[chapter] = "yuri"
+        unsorted_pointlist = {"sayori": sPointTotal, "natsuki": nPointTotal, "yuri": yPointTotal}
+        pointlist = sorted(unsorted_pointlist, key=unsorted_pointlist.get)
 
 
-        exec(poemwinner[chapter][0] + "_appeal += 1")
+
+        #exec(poemwinner[chapter][0] + "_appeal += 1")
 
 
-        if sPointTotal < POEM_DISLIKE_THRESHOLD: s_poemappeal[chapter] = -1
-        elif sPointTotal > POEM_LIKE_THRESHOLD: s_poemappeal[chapter] = 1
-        if nPointTotal < POEM_DISLIKE_THRESHOLD: n_poemappeal[chapter] = -1
-        elif nPointTotal > POEM_LIKE_THRESHOLD: n_poemappeal[chapter] = 1
-        if yPointTotal < POEM_DISLIKE_THRESHOLD: y_poemappeal[chapter] = -1
-        elif yPointTotal > POEM_LIKE_THRESHOLD: y_poemappeal[chapter] = 1
 
-
-        exec(poemwinner[chapter][0] + "_poemappeal[chapter] = 1")
+        #exec(poemwinner[chapter][0] + "_poemappeal[chapter] = 1")
 
     $ config.allow_skipping = True
     $ allow_skipping = True
@@ -525,7 +486,7 @@ label poem(transition=True):
         alpha 0
         linear 1.0 alpha 1.0
     pause 1.0
-    return
+    jump weiter
 
 image bg eyes_move:
     "images/bg/eyes.png"

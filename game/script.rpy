@@ -132,6 +132,7 @@ label start:
     "Eine Tragödie. \[Erster Theil.\]"
     # [Einleitende Angaben]
     show screen now_playing("peak")
+
     # --- Zueignung. ---
     "Ihr naht euch wieder, schwankende Gestalten,"
     "Die früh sich einst dem trüben Blick gezeigt."
@@ -165,7 +166,8 @@ label start:
     "Das strenge Herz es fühlt sich mild und weich;"
     "Was ich besitze seh' ich wie im Weiten,"
     "Und was verschwand wird mir zu Wirklichkeiten."
-
+    jump poem
+    label weiter:
     # --- Vorspiel auf dem Theater. ---
     "Director, Theaterdichter, lustige Person."
     c_director "Ihr beiden, die ihr mir so oft,"
@@ -377,6 +379,7 @@ label start:
     c_director "Den ganzen Kreis der Schöpfung aus,"
     c_director "Und wandelt mit bedächt'ger Schnelle"
     c_director "Vom Himmel durch die Welt zur Hölle."
+
     # [Haupttext]
 
     scene Unbenannt
