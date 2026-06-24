@@ -505,6 +505,7 @@ label start:
     # --- Der Tragödie Erster Theil. ---
     "Nacht."
     "In einem hochgewölbten engen gothischen Zimmer Faust unruhig auf seinem Sessel am Pulte."
+    scene faust studierzimmer
     c_faust "Habe nun, ach! Philosophie,"
     c_faust "Juristerei und Medicin,"
     c_faust "Und leider auch Theologie!"
@@ -1372,6 +1373,7 @@ label Zögern_1:
     c_wagner "Er der Studenten trefflicher Scolar."
     "Sie gehen in das Stadt-Thor."
     "Studirzimmer."
+    scene Faust Studierzimmer
     "Faust mit dem Pudel hereintretend."
     c_faust "Verlassen hab' ich Feld und Auen,"
     c_faust "Die eine tiefe Nacht bedeckt,"
