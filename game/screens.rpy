@@ -334,6 +334,15 @@ screen navigation():
             ## Die Beenden-Schaltfläche ist auf iOS verboten und auf Android und
             ## Web unnötig.
             textbutton _("Beenden") action Quit(confirm=not main_menu)
+        null height 40 
+        
+        text "Aktuelle Musik:":
+            size 22
+            color "#FFD700"
+            
+        text current_track_name:
+            size 20
+            color "#FFFFFF"
 
 
 style navigation_button is gui_button

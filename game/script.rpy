@@ -109,21 +109,44 @@ define c_zweiter = Character("Zweiter", color="#ffffff")
 define c_zweiter_schüler = Character("Zweiter Schüler", color="#ffffff")
 image Unbenannt = "Unbenannt.png"
 #funktionen
+default current_track_name = "Berlioz - La Damnation de Faust"
+
+# Die Animation für das Reinschieben und Rausschieben
+transform music_popup_anim:
+    on show:
+        xalign 1.5 yalign 0.05
+        easein 0.5 xalign 0.98
+    on hide:
+        easeout 0.5 xalign 1.5
+
+# Der eigentliche Screen
 screen now_playing(song_name):
     zorder 150
-    style_prefix "now_playing"
+    
+    # Speichert den Songnamen für das ESC-Menü
+    on "show" action SetVariable("current_track_name", song_name)
+    
+    # Lässt das Fenster nach 5 Sekunden verschwinden
+    timer 5.0 action Hide("now_playing")
 
     frame:
-        xalign 0.1
-        yalign 0.1
-        padding (10, 10)
+        at music_popup_anim
+        xalign 0.98 
+        yalign 0.05
+        padding (20, 15)
+        background Transform(Frame("gui/frame.png", 10, 10), alpha=0.8) 
         
-        has vbox
-        text "🎵 Now Playing" size 16
-        text song_name size 20
-
-style now_playing_frame:
-    background Frame("gui/frame.png", 10, 10)
+        vbox:
+            spacing 5
+            
+            text "🎵 Now Playing":
+                size 24
+                color "#FFD700"
+                
+            text song_name:
+                size 32
+                color "#FFFFFF"
+                outlines [(2, "#000000", 0, 0)]
 
 # === SPIEL START ===
 label start:
@@ -131,7 +154,6 @@ label start:
 
     "Eine Tragödie. \[Erster Theil.\]"
     # [Einleitende Angaben]
-    show screen now_playing("peak")
 
     # --- Zueignung. ---
     "Ihr naht euch wieder, schwankende Gestalten,"
@@ -166,8 +188,6 @@ label start:
     "Das strenge Herz es fühlt sich mild und weich;"
     "Was ich besitze seh' ich wie im Weiten,"
     "Und was verschwand wird mir zu Wirklichkeiten."
-    jump poem
-    label weiter:
     # --- Vorspiel auf dem Theater. ---
     "Director, Theaterdichter, lustige Person."
     c_director "Ihr beiden, die ihr mir so oft,"
@@ -386,6 +406,8 @@ label start:
 
     # --- Prolog im Himmel. ---
     "Der Herr, die himmlischen Heerschaaren, nachher Mephistopheles."
+    play music "audio/mozart_requiem_kyrie.mp3" fadein 3.0
+    show screen now_playing("Mozart - Requiem (Kyrie)")
     "Die drei Erzengel treten vor."
     c_raphael "Die Sonne tönt nach alter Weise"
     c_raphael "In Brudersphären Wettgesang,"
@@ -506,6 +528,8 @@ label start:
     "Nacht."
     "In einem hochgewölbten engen gothischen Zimmer Faust unruhig auf seinem Sessel am Pulte."
     scene faust studierzimmer
+    play music "audio/schubert_sinfonie_8_allegro.mp3" fadein 2.0
+    show screen now_playing("Schubert - Unvollendete")
     c_faust "Habe nun, ach! Philosophie,"
     c_faust "Juristerei und Medicin,"
     c_faust "Und leider auch Theologie!"
@@ -919,6 +943,8 @@ label Zögern_2:
 return
 
 label Zögern_1:
+    play music "audio/gregorian_liturgie_pascale.mp3" fadein 1.0
+    show screen now_playing("Chor der Engel - Liturgie Pascale")
 
     c_faust "Glockenklang und Chorgesang."
     c_chor_der_engel "Christ ist erstanden!"
@@ -994,6 +1020,8 @@ label Zögern_1:
     c_chor_der_engel "Euch ist er da!"
     "Vor dem Thor."
     "Spaziergänger aller Art ziehen hinaus."
+    play music "audio/beethoven_sinfonie_6_pastorale_1.mp3" fadein 2.0
+    show screen now_playing("Beethoven - Pastorale")
     c_einige_handwerksbursche "Warum denn dort hinaus?"
     c_andre "Wir gehn hinaus auf's Jägerhaus."
     c_die_ersten "Wir aber wollen nach der Mühle wandern."
@@ -1373,8 +1401,10 @@ label Zögern_1:
     c_wagner "Er der Studenten trefflicher Scolar."
     "Sie gehen in das Stadt-Thor."
     "Studirzimmer."
-    scene Faust Studierzimmer
+    scene faust studierzimmer
     "Faust mit dem Pudel hereintretend."
+    play music "audio/beethoven_coriolan_ouvertuere.mp3" fadein 2.0
+    show screen now_playing("Beethoven - Coriolan")
     c_faust "Verlassen hab' ich Feld und Auen,"
     c_faust "Die eine tiefe Nacht bedeckt,"
     c_faust "Mit ahnungsvollem heil'gem Grauen"
@@ -2299,6 +2329,8 @@ label Zögern_1:
     c_mephistopheles "Ich gratulire dir zum neuen Lebenslauf."
     "Auerbachs Keller in Leipzig."
     "Zeche lustiger Gesellen."
+    play music "audio/brahms_akademische_festouvertuere.mp3" fadein 1.5
+    show screen now_playing("Brahms - Akademische Festouvertüre")
     c_frosch "Will keiner trinken? keiner lachen?"
     c_frosch "Ich will euch lehren Gesichter machen!"
     c_frosch "Ihr seid ja heut wie nasses Stroh,"
@@ -2620,6 +2652,8 @@ label Zögern_1:
     "Höhe steigt, zeigen sich verschiedene Gestalten. Eine Meerkatze sitzt bei dem Kessel und schäumt"
     "ihn, und sorgt daß er nicht überläuft. Der Meerkater mit den Jungen sitzt darneben und wärmt sich."
     "Wände und Decke sind mit dem seltsamsten Hexenhausrath ausgeschmückt."
+    play music "audio/ducas_apprenti_sorcier.mp3" fadein 2.0
+    show screen now_playing("Ducas - L'Apprenti sorcier")
     "Faust. Mephistopheles."
     c_faust "Mir widersteht das tolle Zauberwesen;"
     c_faust "Versprichst du mir, ich soll genesen,"
@@ -2953,6 +2987,8 @@ label Zögern_1:
     c_faust "dich töten, obgleich mein Weibsverstand"
     "Straße."
     "Faust. Margarete vorüber gehend."
+    play music "audio/debussy_suite_bergamasque_clair_de_lune.mp3" fadein 2.0
+    show screen now_playing("Debussy - Clair de Lune")
     c_faust "Mein schönes Fräulein, darf ich wagen,"
     c_faust "Meinen Arm und Geleit Ihr anzutragen?"
     c_margarete "Bin weder Fräulein, weder schön,"
@@ -3050,6 +3086,8 @@ label Zögern_1:
     c_mephistopheles "Nicht jedes Mädchen hält so rein."
     "Ab."
     "rings aufschauend."
+    play music "audio/gounod_faust_salut_demeure.mp3" fadein 2.0
+    show screen now_playing("Gounod - Faust: Salut! Demeure chaste et pure")
     c_faust "Willkommen süßer Dämmerschein!"
     c_faust "Der du dieß Heiligthum durchwebst."
     c_faust "Ergreif' mein Herz, du süße Liebespein!"
@@ -3096,6 +3134,8 @@ label Zögern_1:
     c_faust "Der große Hans, ach wie so klein!"
     c_faust "Läg', hingeschmolzen, ihr zu Füßen."
     "Mephistopheles kommt."
+    play music "audio/beethoven_coriolan_ouvertuere.mp3" fadein 1.0
+    show screen now_playing("Beethoven - Coriolan")
     c_mephistopheles "Geschwind! ich seh' sie unten kommen."
     c_faust "Fort! Fort! Ich kehre nimmermehr!"
     c_mephistopheles "Hier ist ein Kästchen leidlich schwer,"
@@ -3153,6 +3193,8 @@ label Zögern_1:
     c_margarete "Die Augen thäten ihm sinken,"
     c_margarete "Trank nie einen Tropfen mehr."
     "Sie eröffnet den Schrein, ihre Kleider einzuräumen, und erblickt das Schmuckkästchen."
+    play music "audio/gounod_faust_juwelenarie.mp3" fadein 1.0
+    show screen now_playing("Gounod - Faust: Juwelenarie")
     c_margarete "Wie kommt das schöne Kästchen hier herein?"
     c_margarete "Ich schloß doch ganz gewiß den Schrein."
     c_margarete "Es ist doch wunderbar! Was mag wohl drinne sein?"
@@ -3178,6 +3220,8 @@ label Zögern_1:
     c_margarete "Doch alles. Ach wir Armen!"
     "Spaziergang."
     "Faust in Gedanken auf und ab gehend. Zu ihm Mephistopheles."
+    play music "audio/beethoven_coriolan_ouvertuere.mp3" fadein 1.0
+    show screen now_playing("Beethoven - Coriolan")
     c_mephistopheles "Bei aller verschmähten Liebe! Bei'm höllischen Elemente!"
     c_mephistopheles "Ich wollt' ich wüßte was Ärgers, daß ich's fluchen könnte!"
     c_faust "Was hast? was kneipt dich denn so sehr?"
@@ -3471,6 +3515,8 @@ label Zögern_1:
     c_faust "Denn du hast Recht, vorzüglich weil ich muß."
     "Garten."
     "Margarete an Faustens Arm, Marthe mit Mephistopheles auf und ab spazierend."
+    play music "audio/tschaikowski_romeo_und_julia.mp3" fadein 2.0
+    show screen now_playing("Tschaikowski - Romeo und Julia")
     c_margarete "Ich fühl' es wohl, daß mich der Herr nur schont,"
     c_margarete "Herab sich läßt, mich zu beschämen."
     c_margarete "Ein Reisender ist so gewohnt"
@@ -3661,6 +3707,8 @@ label Zögern_1:
     c_margarete "Begreife nicht was er an mir find't."
     "Ab."
     "Wald und Höhle."
+    play music "audio/schubert_sinfonie_8_allegro.mp3" fadein 2.0
+    show screen now_playing("Schubert - Unvollendete")
     "Faust allein."
     c_faust "Erhabner Geist, du gabst mir, gabst mir alles,"
     c_faust "Warum ich bat. Du hast mir nicht umsonst"
@@ -3825,6 +3873,8 @@ label Zögern_1:
     c_mephistopheles "Als einen Teufel der verzweifelt."
     "Gretchens Stube."
     "Gretchen am Spinnrade allein."
+    play music "audio/chopin_nocturne_cis_moll.mp3" fadein 2.0
+    show screen now_playing("Chopin - Nocturne (Gretchens Kummer)")
     c_gretchen "Meine Ruh ist hin,"
     c_gretchen "Mein Herz ist schwer;"
     c_gretchen "Ich finde sie nimmer"
@@ -3868,6 +3918,8 @@ label Zögern_1:
     "Marthens Garten."
     c_gretchen "Margarete. Faust."
     c_margarete "Versprich mir, Heinrich!"
+    play music "audio/debussy_suite_bergamasque_clair_de_lune.mp3" fadein 2.0
+    show screen now_playing("Debussy - Clair de Lune")
     c_faust "Was ich kann!"
     c_margarete "Nun sag', wie hast du's mit der Religion?"
     c_margarete "Du bist ein herzlich guter Mann,"
@@ -4099,6 +4151,8 @@ label Zögern_1:
     "Nacht."
     "Straße vor Gretchens Thüre."
     "Valentin Soldat, Gretchens Bruder."
+    play music "audio/beethoven_coriolan_ouvertuere.mp3" fadein 1.0
+    show screen now_playing("Beethoven - Coriolan")
     c_valentin "Wenn ich so saß bei einem Gelag,"
     c_valentin "Wo mancher sich berühmen mag,"
     c_valentin "Und die Gesellen mir den Flor"
@@ -4278,6 +4332,8 @@ label Zögern_1:
     "Dom."
     "Amt, Orgel und Gesang."
     "Gretchen unter vielem Volke. Böser Geist hinter Gretchen."
+    play music "audio/mozart_requiem_dies_irae.mp3" fadein 1.0
+    show screen now_playing("Mozart - Requiem (Dies Irae)")
     c_böser_geist "Wie anders, Gretchen, war dir's,"
     c_böser_geist "Als du noch voll Unschuld"
     c_böser_geist "Hier zum Altar trat'st,"
@@ -4340,6 +4396,8 @@ label Zögern_1:
     c_gretchen "Nachbarin! Euer Fläschchen! --Sie fällt in Ohnmacht."
     "Walpurgisnacht."
     "Harzgebirg. Gegend von Schierke und Elend."
+    play music "audio/moussorgsky_nacht_auf_dem_kahlen_berge.mp3" fadein 2.0
+    show screen now_playing("Moussorgsky - Nacht auf dem kahlen Berge")
     "Faust. Mephistopheles."
     c_mephistopheles "Verlangst du nicht nach einem Besenstiele?"
     c_mephistopheles "Ich wünschte mir den allerderbsten Bock."
@@ -4761,6 +4819,8 @@ label Zögern_1:
     c_mephistopheles "Das find' ich gut; denn da gehört ihr hin."
 
     # --- Walpurgisnachtstraum oder Oberons und Titanias goldne Hochzeit. ---
+    play music "audio/mendelssohn_sommernachtstraum.mp3" fadein 2.0
+    show screen now_playing("Mendelssohn - Ein Sommernachtstraum")
     "Intermezzo."
     c_theatermeister "Heute ruhen wir einmal"
     c_theatermeister "Miedings wackre Söhne."
@@ -4947,6 +5007,8 @@ label Zögern_1:
     c_ariel "Und alles ist zerstoben."
     "Trüber Tag."
     "Feld."
+    play music "audio/beethoven_coriolan_ouvertuere.mp3" fadein 1.0
+    show screen now_playing("Beethoven - Coriolan")
     "Faust. Mephistopheles."
     c_faust "Im Elend! Verzweifelnd! Erbärmlich auf der Erde lange verirrt und nun gefangen! Als Missethäterin"
     c_faust "im Kerker zu entsetzlichen Qualen eingesperrt das holde unselige Geschöpf! Bis dahin! dahin! --Verrätherischer nichtswürdiger Geist, und das hast du mir verheimlicht! --- Steh nur, steh! Wälze die"
@@ -5000,6 +5062,8 @@ label Zögern_1:
     c_mephistopheles "Vorbei! Vorbei!"
     "Kerker."
     "Faust mit einem Bund Schlüssel und einer Lampe, vor einem eisernen Thürchen."
+    play music "audio/tschaikowski_sinfonie_6_pathetique_adagio.mp3" fadein 2.0
+    show screen now_playing("Tschaikowski - Pathétique")
     c_faust "Mich faßt ein längst entwohnter Schauer,"
     c_faust "Der Menschheit ganzer Jammer Faßt mich an."
     c_faust "Hier wohnt sie hinter dieser feuchten Mauer,"
@@ -5230,6 +5294,8 @@ label Zögern_1:
     c_margarete "Lagert euch umher, mich zu bewahren!"
     c_margarete "Heinrich! Mir graut's vor dir."
     c_mephistopheles "Sie ist gerichtet!"
+    play music "audio/gounod_faust_finale_anges_purs.mp3" fadein 1.0
+    show screen now_playing("Gounod - Faust: Finale (Chor der Engel)")
     "von oben."
     c_stimme "Ist gerettet!"
     "zu Faust."

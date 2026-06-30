@@ -66,7 +66,7 @@ define config.has_voice = True
 ## Audiodatei abgespielt wird. Diese wird im Spiel so lange weiterlaufen, bis
 ## sie gestoppt wird oder eine andere Datei abgespielt wird.
 
-define config.main_menu_music = "main menu.ogg"
+define config.main_menu_music = "audio/berlioz_damnation_de_faust_rakoczi.mp3"
 
 
 ## Übergänge ###################################################################
