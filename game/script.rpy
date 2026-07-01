@@ -112,7 +112,7 @@ image Unbenannt = "Unbenannt.png"
 #funktionen
 default current_track_name = "Berlioz - La Damnation de Faust"
 
-# Die Animation für das Reinschieben und Rausschieben
+
 transform music_popup_anim:
     on show:
         xalign 1.5 yalign 0.05
@@ -120,14 +120,13 @@ transform music_popup_anim:
     on hide:
         easeout 0.5 xalign 1.5
 
-# Der eigentliche Screen
 screen now_playing(song_name):
     zorder 150
     
-    # Speichert den Songnamen für das ESC-Menü
+
     on "show" action SetVariable("current_track_name", song_name)
     
-    # Lässt das Fenster nach 5 Sekunden verschwinden
+
     timer 5.0 action Hide("now_playing")
 
     frame:
@@ -3961,7 +3960,7 @@ label Zögern_1:
     "Gretchens Stube."
     "Gretchen am Spinnrade allein."
     play music "audio/chopin_nocturne_cis_moll.mp3" fadein 2.0
-    show screen now_playing("Chopin - Nocturne (Gretchens Kummer)")
+    show screen now_playing("Chopin - Nocturne")
     c_gretchen "Meine Ruh ist hin,"
     c_gretchen "Mein Herz ist schwer;"
     c_gretchen "Ich finde sie nimmer"
