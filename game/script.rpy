@@ -107,6 +107,7 @@ define c_xenien = Character("Xenien", color="#ffffff")
 define c_zu_drei = Character("Zu Drei", color="#ffffff")
 define c_zweiter = Character("Zweiter", color="#ffffff")
 define c_zweiter_schüler = Character("Zweiter Schüler", color="#ffffff")
+define nvlcenter = Character(None, kind=nvl, what_text_align=0.5, what_xalign=0.5)
 image Unbenannt = "Unbenannt.png"
 #funktionen
 default current_track_name = "Berlioz - La Damnation de Faust"
@@ -930,15 +931,101 @@ label start:
 return
 
 label Zögern_2:
+    nvlcenter """
+    So widerlich erfüllt´s mein Gaumen,
 
-    c_faust"So widerlich erfüllt´s mein Gaumen,"
-    c_faust"mein Leib durchwäscht von diesem Trunk."
-    c_faust "So gerne wär ich ein Bauers Sohn,"
-    c_faust "Felder ackern, Samen säen und blauäugig sein"
-    c_faust "Dem Menschentum weit entfernt,"
-    c_faust "er Göttlichkeit sehr entbehrt."
-    c_faust "Das einfache Volk beneid ich sehr"
-    c_faust "so seelenruhig gehen sie umher"
+    mein Leib durchwäscht von diesem Trunk.
+
+    So gerne wär ich ein Bauers Sohn,
+
+    Felder ackern, Samen säen und blauäugig sein
+
+    Dem Menschentum weit entfernt,
+
+    Der Göttlichkeit sehr entbehrt.
+
+    Das einfache Volk beneid ich sehr
+
+    so seelenruhig gehen sie umher
+
+    Ein vollkommener Gott?!
+
+    Das BESTE aller Welten?!
+
+    Seit Adams Zeiten bist geflohen"
+
+    Und Gott sah die Erde, und siehe, sie war verdorben; denn alles Fleisch hatte seinen Weg verdorben auf Erden."   
+
+    {clear}
+    
+    Unser Vater erzog uns nie,
+
+    wie sollten Wir dein Gnad erfahren
+
+    zu richten Uns trotz Deiner Schuld
+
+    zerstören wird uns deine Apathie
+
+    die Hilfeschreie werden geblendet
+
+    der Acedia ist´s verschuldet
+
+    so lernten Wir die Trägheit schätzen
+
+    Ein Gott so stolz auf seiner Kreation.
+
+    Und Gott sprach:"  
+
+    Lasst uns Menschen machen als unser Bild, uns ähnlich!" 
+
+    Ein Gott so stolz auf seiner Selbst
+
+    so lernten Wir den Hochmut schätzen
+
+    Verlassene Kinder
+
+    ohne irgendeine Huld
+
+    ohne irgendeine Edukation
+
+    {clear}
+
+    {size=+40}
+
+    Ruiniert hast DU uns!
+
+    So hab Erbarmen alleinig MIR
+
+    {color=#FF0000}
+
+    ANTWORTE MIR GOTT
+
+
+    ICHWILLNICHTSTERBENICHWILLNICHTSTERBENICHWILLNICHTSTERBENICHWILLNICHTSTERBENICHWILLNICHTSTERBENICHWILLNICHTSTERBENICHWILLNICHTSTERBENICHWILLNICHTSTERBENICHWILLNICHTSTERBEN\nICHWILLNICHTSTERBENICHWILLNICHTSTERBENICHWILLNICHTSTERBENICHWILLNICHTSTERBENICHWILLNICHTSTERBENICHWILLNICHTSTERBENICHWILLNICHTSTERBEN\nICHWILLNICHTSTERBENICHWILLNICHTSTERBENICHWILLNICHTSTERBENICHWILLNICHTSTERBEN
+    
+    ICHWILLNICHTSTERBENICHWILLNICHTSTERBEN
+    
+    ICHWILLNICHTSTERBEN
+    
+    ............STERBEN
+    ....................................
+    ....................
+    ..........
+    ...
+    """
+
+    "Lasciate ogne speranza, voi ch’intrate"
+
+
+
+
+
+
+
+
+
+
+
 
 return
 
