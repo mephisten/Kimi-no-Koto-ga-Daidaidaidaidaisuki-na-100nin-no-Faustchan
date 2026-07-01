@@ -1022,6 +1022,15 @@ label Zögern_2:
 
     "Lasciate ogne speranza, voi ch’intrate"
 
+    nvlcenter """
+
+    {clear}
+
+    Wo bin Ich hier? Gefangen in der Hades?
+    \nVerdammt an diesem Ort die Ewigkeit lang.
+    \nDer Seeln Glut erstickt im Keim durch Gottes
+   
+    \n\nHand
 
 
 
@@ -1030,8 +1039,7 @@ label Zögern_2:
 
 
 
-
-
+    """
 
 return
 
